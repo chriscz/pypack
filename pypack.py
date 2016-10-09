@@ -87,11 +87,11 @@ def prepare_home(config):
     with open(config['bashrc'], 'r+') as f:
         bashrc = f.read()
         if not re_comment.search(bashrc):
-            f.write('PATH="$PATH"{os.pathsep}"{config[bin]}" #pypack:{config[basename]}\n'.format(os=os, config=config))
+            f.write('export PATH="{config[bin]}"{os.pathsep}"$PATH"#pypack:{config[basename]}\n'.format(os=os, config=config))
 
 def decode_data_to(data, filename, make_exec=True):
     data = base64.b64decode(data)
-    with open(filename, 'w') as f:
+    with open(filename, 'wb') as f:
         data = f.write(data)
         f.flush()
     f.close()
